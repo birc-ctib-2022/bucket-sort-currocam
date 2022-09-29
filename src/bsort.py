@@ -1,3 +1,4 @@
+# Done by @currocam and @ABaCal
 """Module for bucket sorting."""
 from itertools import repeat
 from typing import Any
@@ -86,5 +87,7 @@ def bucket_sort(x: list[tuple[int, Any]]) -> list[tuple[int, Any]]:
     """
     buckets = cumsum(count_keys([k for k, _ in x]))
     out = [(0, None)] * len(x)
-    # Place the pairs in their buckets
+    for key, value in x:
+        out[buckets[key]] = (key, value)
+        buckets[key] += 1
     return out
