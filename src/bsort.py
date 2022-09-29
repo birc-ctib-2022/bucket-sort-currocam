@@ -31,7 +31,8 @@ def count_keys(keys: list[int]) -> list[int]:
     # there are no keys.
     no_keys = max(keys) + 1 if keys else 0
     counts = [0] * no_keys
-    # FIXME: count the keys
+    for element in keys:
+        counts[element] += 1
     return counts
 
 
@@ -49,7 +50,7 @@ def count_sort(x: list[int]) -> list[int]:
     """
     counts = count_keys(x)
     out = [0] * len(x)
-    # FIXME: do the actual sorting
+
     return out
 
 
@@ -63,7 +64,8 @@ def cumsum(x: list[int]) -> list[int]:
     [0, 0, 2, 4, 4]
     """
     out = [0] * len(x)
-    # FIXME: Compute the cumulative sum
+    for i in range(1, len(x)):
+        out[i] = out[i-1] + x[i-1]
     return out
 
 
