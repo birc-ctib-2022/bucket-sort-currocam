@@ -1,5 +1,5 @@
 """Module for bucket sorting."""
-
+from itertools import repeat
 from typing import Any
 
 
@@ -50,7 +50,10 @@ def count_sort(x: list[int]) -> list[int]:
     """
     counts = count_keys(x)
     out = [0] * len(x)
-
+    i = 0
+    for element, counter in enumerate(counts):
+        out[i:i+counter+1] = repeat(element, counter)
+        i += counter
     return out
 
 
