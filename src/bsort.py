@@ -1,5 +1,6 @@
+# Done by @currocam and @ABaCal
 """Module for bucket sorting."""
-
+from itertools import repeat
 from typing import Any
 
 
@@ -31,7 +32,8 @@ def count_keys(keys: list[int]) -> list[int]:
     # there are no keys.
     no_keys = max(keys) + 1 if keys else 0
     counts = [0] * no_keys
-    # FIXME: count the keys
+    for element in keys:
+        counts[element] += 1
     return counts
 
 
@@ -49,7 +51,10 @@ def count_sort(x: list[int]) -> list[int]:
     """
     counts = count_keys(x)
     out = [0] * len(x)
-    # FIXME: do the actual sorting
+    i = 0
+    for element, counter in enumerate(counts):
+        out[i:i+counter+1] = repeat(element, counter)
+        i += counter
     return out
 
 
@@ -63,7 +68,8 @@ def cumsum(x: list[int]) -> list[int]:
     [0, 0, 2, 4, 4]
     """
     out = [0] * len(x)
-    # FIXME: Compute the cumulative sum
+    for i in range(1, len(x)):
+        out[i] = out[i-1] + x[i-1]
     return out
 
 
@@ -81,5 +87,7 @@ def bucket_sort(x: list[tuple[int, Any]]) -> list[tuple[int, Any]]:
     """
     buckets = cumsum(count_keys([k for k, _ in x]))
     out = [(0, None)] * len(x)
-    # Place the pairs in their buckets
+    for key, value in x:
+        out[buckets[key]] = (key, value)
+        buckets[key] += 1
     return out
